@@ -1,277 +1,74 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-.container{
-  width:100vw;
-  height: 100vh;
-  background: aqua;
+/* Container */
+.container-add{
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  min-height: 90vh;
+  background: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.form-container{
-  border:2px solid black;
-  height:90vh;
-  width: 70vw;
-display: flex;
-align-items: center;
-flex-direction: column;
-gap: 2vw;
-padding-top:2vw;
-border-radius:15px;
-background-color: rgb(102, 87, 60);
+.app-header{
+  font-style: italic;
+  font-weight: 800;
+  color: #d84ac7;
 }
-.form{
-display: flex;
-align-items: center;
-flex-direction: column;
-gap: 2vw;
-background-color: rgb(102, 87, 60);
+/* Form card */
+.form-card {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
 }
-.form input{
-  width: 60vw;
-  height: 3.2vw;
-  font-size: 1.8vw;
-  border-radius: 10px;
-  padding-left: 1vw;
 
-}
-.form textarea{
-  width: 60vw;
-  height: 3.4vw;
-  font-size: 1.8vw;
-  border-radius: 10px;
-  padding-left: 1vw;
-}
-.option{
-  width: 60vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.form-title {
   text-align: center;
-  /* background-color: red; */
-
+  margin-bottom: 25px;
+  color: #333;
 }
 
-.option button {
-  width: 10vw;
-  height: 2.8vw;
-  font-size: 1.7vw;
-  border: 1px solid gray;
+/* Form fields */
+.form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  color:white;
-  background-color: rgb(15, 15, 168);
-  cursor: pointer;
-    transition: 0.6s;
-}
-.option button:hover {
-  background-color:#f6007d;
-  color:  rgb(16, 16, 58);
-
-}
-.list-item{
-  width: 60vw;
-  height: 3vw;
-  border-radius: 10px;
-  background-color: aqua;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.8vw; 
-  padding-left: 1vw; 
- 
-}
-.checked{
-margin-right: 10px;
-}
-.btn-list{
-  padding: 2%;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.btn{
-  height: 2.6vw;
-  width: 5vw;
-  gap:2vw;
-  margin: 0.2vw;
-  font-size: 1.4vw; 
-  border-radius: 10px;
-  background-color: rgb(6, 85, 23);
-  color: white;
-  cursor: pointer;
-}
-.btn-list{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.btn-del{
-  width: 6vw;
-  height: 2.6vw;
-  font-size: 1.7vw;
-  border: 1px solid gray;
-  border-radius: 10px;
-  color:white;
-  background-color:red;
-  cursor: pointer;
-  
-}
-.btn-btn{
-  width: 8vw;
-  height: 2.6vw;
-  font-size: 1.7vw;
-  border: 1px solid gray;
-  border-radius: 10px;
-  color:white;
-  background-color:red;
-  cursor: pointer;
+.input-field {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
   transition: 0.3s;
+}
+
+.input-field:focus {
+  border-color: #2196F3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+  outline: none;
+}
+
+/* Submit button */
+.btn-submit {
+  padding: 12px;
+  background-color: #2196F3;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
   margin-top: 10px;
-
-}
-.btn-btn:hover {
-  background-color:rgb(218, 137, 137);
-  color:black;
-  transform: scale(0.9, 0.9);
-
+  transition: 0.3s;
 }
 
+.btn-submit:hover {
+  background-color: #1976d2;
+}
 
-@media(max-width: 1000px){
-  .form-container{
-    width: 80vw;
-  gap: 3vw;
+/* Responsive */
+@media (max-width: 500px) {
+  .form-card {
+    padding: 20px;
   }
-  .form{
-  gap: 3vw;
-  }
-  .form input{
-    height: 5vw;
-    width: 70vw;
-    font-size: 3vw;
-    padding-left: 2vw;
-  }
-  .form textarea{
-    height: 5vw;
-    width: 70vw;
-    font-size: 3vw;
-    padding-left: 2vw;
-  }
-  .option{
-width: 70vw;
-  }
-  
-  .option select{
-    width: 19vw;
-    height: 5vw;
-    font-size: 2.4vw;
-    display: flex;
-  }
-  .option button {
-    width: 16vw;
-    height: 5vw;
-    font-size: 2.6vw;
-  }
-  .list-item{
-    width: 70vw;
-    height: 5vw;
-    font-size: 2.8vw;  
-  }
-  .checked{
-  margin-right: 10px;
-  }
-  .btn-list{
-    padding: 2%;
-  }
-  
-  .btn{
-    height: 4vw;
-    width: 6vw;
-    margin: 0.2vw;
-    font-size: 2.4vw; 
-  }
-
-  .btn-del{
-    width: 8vw;
-    height: 4vw;
-    font-size: 2.5vw;
-  }
-  .btn-btn{
-    width: 14vw;
-    height: 4.4vw;
-    font-size: 2.8vw;
-  }
-
-} 
-
-@media(max-width: 650px){
-  .form-container{
-    width: 85vw;
-  gap: 3.6vw;
-  }
-  .form{
-  gap: 3.6vw;
-  }
-  .form input{
-    height: 9vw;
-    width: 80vw;
-    font-size: 4.4vw;
-    padding-left: 2.2vw;
-  }
-  .form textarea{
-    height: 9vw;
-    width: 80vw;
-    font-size: 4.4vw;
-    padding-left: 2.2vw;
-  }
-  .option{
-width: 80vw;
-  }
-  
-  .option select{
-    width: 24vw;
-    height: 6.4vw;
-    font-size: 3.2vw;
-    display: flex;
-  }
-  .option button {
-    width: 20vw;
-    height: 6.4vw;
-    font-size: 3.4vw;
-  }
-  .list-item{
-    width: 80vw;
-    height: 8vw;
-    font-size: 3.8vw;  
-  }
-  .checked{
-  margin-right: 10px;
-  }
-  .btn-list{
-    padding: 1%;
-  }
-  
-  .btn{
-    height: 6vw;
-    width: 8vw;
-    margin: 0.2vw;
-    font-size: 3.4vw; 
-  }
-
-  .btn-del{
-    width: 12vw;
-    height: 6vw;
-    font-size: 3.5vw;
-  }
-  .btn-btn{
-    width: 20vw;
-    height: 6.2vw;
-    font-size: 3.8vw;
-  }
-
-} 
+}

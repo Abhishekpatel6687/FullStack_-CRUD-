@@ -1,13 +1,24 @@
-import React, { createContext, useEffect, useState } from "react";
-import "../App.css";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import styles from "./UpdateEmp.module.css";
 
 const UpdateEmp = ({ singleEmp }) => {
   const navigate = useNavigate();
-  const [input, setInput] = useState(singleEmp);
+  const [input, setInput] = useState({
+    name: "",
+    email: "",
+    designation: "",
+    empid: "",
+  });
 
-  const handleSbumit = (e) => {
+  useEffect(() => {
+    if (singleEmp) {
+      setInput(singleEmp);
+    }
+  }, [singleEmp]);
+
+  const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
@@ -16,7 +27,7 @@ const UpdateEmp = ({ singleEmp }) => {
     try {
       await axios.patch(
         `http://localhost:8080/api/updateData/${input.empid}`,
-        input,
+        input
       );
       navigate("/");
     } catch (err) {
@@ -25,43 +36,49 @@ const UpdateEmp = ({ singleEmp }) => {
   };
 
   return (
-    <div className="container">
-      <div className="form-container">
-        <form className="form">
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Update Employee</h2>
+
+        <form className={styles.form} onSubmit={submit}>
           <input
             type="text"
-            value={input.name}
             name="name"
-            placeholder="Enter your name"
-            onChange={handleSbumit}
+            value={input.name}
+            placeholder="Employee Name"
+            onChange={handleChange}
+            className={styles.input}
           />
 
           <input
             type="email"
-            value={input.email}
             name="email"
-            placeholder="Enter your email"
-            onChange={handleSbumit}
+            value={input.email}
+            placeholder="Employee Email"
+            onChange={handleChange}
+            className={styles.input}
           />
+
           <input
             type="text"
-            value={input.designation}
             name="designation"
-            placeholder="Enter your designation"
-            onChange={handleSbumit}
+            value={input.designation}
+            placeholder="Designation"
+            onChange={handleChange}
+            className={styles.input}
           />
+
           <input
             type="text"
-            value={input.empid}
             name="empid"
-            placeholder="Enter your empid"
-            onChange={handleSbumit}
+            value={input.empid}
+            disabled
+            className={`${styles.input} ${styles.disabled}`}
           />
-          <div className="option">
-            <button onClick={submit} className="button">
-              Update
-            </button>
-          </div>
+
+          <button type="submit" className={styles.btn}>
+            Update Employee
+          </button>
         </form>
       </div>
     </div>

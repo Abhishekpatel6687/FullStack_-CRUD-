@@ -1,82 +1,84 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
+import "./Header.css"; // Import our custom CSS
+
 const Header = ({ setSingleEmp }) => {
   const [employees, setEmployees] = useState([]);
-  console.log(employees)
+
   useEffect(() => {
-    const featchData = async () => {
+    const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/getAllData");
-        if (res.data && res.data.length > 0) {
-          setEmployees(res.data);
-        } else {
-          setEmployees([]);
-        }
+        setEmployees(res.data || []);
       } catch (err) {
         console.log("Error fetching data", err);
       }
     };
-    featchData();
+    fetchData();
   }, []);
 
-  const editHandler = (empid) => {
-    setSingleEmp(empid);
+  const editHandler = (emp) => {
+    setSingleEmp(emp);
   };
+
   const DeleteHandler = async (empid) => {
     await axios.delete(`http://localhost:8080/api/deleteData/${empid}`);
     const aa = await axios.get("http://localhost:8080/api/getAllData");
     setEmployees(aa.data);
   };
+
   const deleteAllHandler = async () => {
     await axios.delete(`http://localhost:8080/api/deleteAll`);
-    const aa = await axios.get("http://localhost:8080/api/getAllData");
-    setEmployees(aa.data);
+    setEmployees([]);
   };
+
   return (
-    <div>
-      <Link to="/AddEmp">Add Emp</Link>
+    <div className="container">
+      <div className="header-top">
+        <h1>Employee Dashboard</h1>
+        <Link to="/AddEmp" className="btn-add">
+          + Add Employee
+        </Link>
+      </div>
 
       {employees.length > 0 ? (
-        employees.map((item, index) => {
-          return (
-            <div key={index}>
-              <div className="list-item">
-                <p>{item.name}</p>
-                <p>{item.email}</p>
-                <p>{item.designation}</p>
-                <p>{item.empid}</p>
-
-                <div className="btn-list">
-                  <Link
-                    to="/update"
-                    onClick={() => editHandler(item)}
-                    className="btn"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => DeleteHandler(item.empid)}
-                    className="btn-del"
-                  >
-                    Delete
-                  </button>
-                </div>
+        <div className="employee-list">
+          {employees.map((item, index) => (
+            <div className="list-item" key={index}>
+              <div className="info">
+                <p><strong>Name:</strong> {item.name}</p>
+                <p><strong>Email:</strong> {item.email}</p>
+                <p><strong>Designation:</strong> {item.designation}</p>
+                <p><strong>ID:</strong> {item.empid}</p>
+              </div>
+              <div className="btn-list">
+                <Link
+                  to="/update"
+                  onClick={() => editHandler(item)}
+                  className="btn edit-btn"
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={() => DeleteHandler(item.empid)}
+                  className="btn delete-btn"
+                >
+                  Delete
+                </button>
               </div>
             </div>
-          );
-        })
+          ))}
+        </div>
       ) : (
-        <h2>No Employees Found</h2>
+        <h2 className="no-emp">No Employees Found</h2>
       )}
 
-      {employees.length >= 1 ? (
-        <button onClick={() => deleteAllHandler()} className="btn-btn">
-          All Delete
+      {employees.length >= 1 && (
+        <button onClick={deleteAllHandler} className="btn delete-all">
+          Delete All
         </button>
-      ) : null}
-      
+      )}
     </div>
   );
 };

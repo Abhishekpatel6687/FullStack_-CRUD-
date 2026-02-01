@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./App.css"
 import Header from './components/Header'
 import AddEmp from './components/AddEmp'
-import ListTable from './components/ListTable';
 import UpdateEmp from './components/UpdateEmp';
 
 const App = () => {
@@ -18,7 +17,6 @@ const App = () => {
          <Routes>
            <Route path="/" element={<Header setSingleEmp={setSingleEmp} />} />
            <Route path="/AddEmp" element={<AddEmp />} />
-           <Route path="/list" element={<ListTable />} />
            <Route path="/update" element={<UpdateEmp  singleEmp={singleEmp}/>} />
 
            

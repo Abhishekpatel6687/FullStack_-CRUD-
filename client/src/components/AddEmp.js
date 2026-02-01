@@ -3,18 +3,18 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const initalValue = {
+const initialValue = {
   name: "",
   email: "",
   designation: "",
   empid: "",
 };
+
 const AddEmp = () => {
   const navigate = useNavigate();
+  const [input, setInput] = useState(initialValue);
 
-  const [input, setInput] = useState(initalValue);
-
-  const handleSbumit = (e) => {
+  const handleInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
@@ -27,16 +27,19 @@ const AddEmp = () => {
       console.log("Error adding employee", err);
     }
   };
+
   return (
-    <div className="container">
-      <div className="form-container">
+    <div className="container-add">
+      <div className="form-card">
+        <h2 className="form-title">Add New Employee</h2>
         <form className="form">
           <input
             type="text"
             value={input.name}
             name="name"
             placeholder="Enter your name"
-            onChange={handleSbumit}
+            onChange={handleInput}
+            className="input-field"
           />
 
           <input
@@ -44,27 +47,31 @@ const AddEmp = () => {
             value={input.email}
             name="email"
             placeholder="Enter your email"
-            onChange={handleSbumit}
+            onChange={handleInput}
+            className="input-field"
           />
+
           <input
             type="text"
             value={input.designation}
             name="designation"
             placeholder="Enter your designation"
-            onChange={handleSbumit}
+            onChange={handleInput}
+            className="input-field"
           />
+
           <input
             type="text"
             value={input.empid}
             name="empid"
-            placeholder="Enter your empid"
-            onChange={handleSbumit}
+            placeholder="Enter your employee ID"
+            onChange={handleInput}
+            className="input-field"
           />
-          <div className="option">
-            <button onClick={submit} className="button">
-              Add Task
-            </button>
-          </div>
+
+          <button type="submit" onClick={submit} className="btn-submit">
+            Add Employee
+          </button>
         </form>
       </div>
     </div>
