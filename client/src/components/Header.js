@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 const Header = ({ setSingleEmp }) => {
   const [employees, setEmployees] = useState([]);
+  console.log(employees)
   useEffect(() => {
     const featchData = async () => {
       try {
@@ -37,7 +38,7 @@ const Header = ({ setSingleEmp }) => {
     <div>
       <Link to="/AddEmp">Add Emp</Link>
 
-      {employees > 0 ? (
+      {employees.length > 0 ? (
         employees.map((item, index) => {
           return (
             <div key={index}>
@@ -55,7 +56,6 @@ const Header = ({ setSingleEmp }) => {
                   >
                     Edit
                   </Link>
-                  {/* <button className="btn-del">Delete</button> */}
                   <button
                     onClick={() => DeleteHandler(item.empid)}
                     className="btn-del"
@@ -70,7 +70,7 @@ const Header = ({ setSingleEmp }) => {
       ) : (
         <h2>No Employees Found</h2>
       )}
-      
+
       {employees.length >= 1 ? (
         <button onClick={() => deleteAllHandler()} className="btn-btn">
           All Delete
