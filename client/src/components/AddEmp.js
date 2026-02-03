@@ -13,16 +13,34 @@ const initialValue = {
 const AddEmp = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState(initialValue);
+  const [image, setImage] = useState(null);
+  console.log(image, "image");
 
   const handleInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const submit = async (e) => {
+    console.log(input, "inputdata");
     e.preventDefault();
+    console.log(input, "inputdata", image, "jj");
     try {
-      await axios.post(`http://localhost:8080/api/saveData`, input);
-      navigate("/");
+      const formData = new FormData();
+      formData.append("name", input.name);
+      formData.append("email", input.email);
+      formData.append("designation", input.designation);
+      formData.append("empid", input.empid);
+
+      formData.append("image", image);
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      console.log(formData, "formdata");
+
+      await axios.post(`http://localhost:8080/api/saveData`, formData);
+      // navigate("/");
     } catch (err) {
       console.log("Error adding employee", err);
     }
@@ -32,10 +50,9 @@ const AddEmp = () => {
     <div className="container-add">
       <div className="form-card">
         <h2 className="form-title">Add New Employee</h2>
-        <form className="form">
+        <form onSubmit={submit} className="form">
           <input
             type="text"
-            value={input.name}
             name="name"
             placeholder="Enter your name"
             onChange={handleInput}
@@ -44,7 +61,6 @@ const AddEmp = () => {
 
           <input
             type="email"
-            value={input.email}
             name="email"
             placeholder="Enter your email"
             onChange={handleInput}
@@ -53,7 +69,6 @@ const AddEmp = () => {
 
           <input
             type="text"
-            value={input.designation}
             name="designation"
             placeholder="Enter your designation"
             onChange={handleInput}
@@ -62,14 +77,19 @@ const AddEmp = () => {
 
           <input
             type="text"
-            value={input.empid}
             name="empid"
             placeholder="Enter your employee ID"
             onChange={handleInput}
             className="input-field"
           />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            className="input-field"
+          />
 
-          <button type="submit" onClick={submit} className="btn-submit">
+          <button type="submit" className="btn-submit">
             Add Employee
           </button>
         </form>

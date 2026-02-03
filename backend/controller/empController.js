@@ -13,40 +13,87 @@ export const getAllController = async (req, res) => {
   }
 };
 
+// export const addEmpController = async (req, res) => {
+
+
+//    console.log("BODY:", req.body);
+//     console.log("FILE:", req.file);
+//   const { name, email, designation, empid, image } = req.body; // bady , params, query
+//   if (!name || !email || !designation || !empid) {
+//     return res.status(400).json({ message: "All fields are required !" });
+//   }
+//   try {
+//     const exitstempid = await Employee.findOne({
+//       where: {
+//         empid,
+//       },
+//     });
+//     if (exitstempid) {
+//       return res
+//         .status(409)
+//         .json({ message: "employee with empid already exist" });
+//     }
+//     const exitstempemail = await Employee.findOne({
+//       where: {
+//         email,
+//       },
+//     });
+//     if (exitstempemail) {
+//       return res
+//         .status(409)
+//         .json({ message: "employee with email already exist" });
+//     }
+//         const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+//     await Employee.create({ name, email, designation, empid, image: imagePath,  });
+//     return res.status(201).json({ message: "Employee Created Successfully" });
+//   } catch (e) {
+//     console.log("Internal Error", e);
+//     return res.status(500).json({ error: "Internal Error" });
+//   }
+// };
+
 export const addEmpController = async (req, res) => {
-  console.log(req.body);
-  const { name, email, designation, empid } = req.body; // bady , params, query
+  console.log("BODY:", req.body);
+  console.log("FILE:", req.file);
+
+  const { name, email, designation, empid } = req.body;
+
   if (!name || !email || !designation || !empid) {
     return res.status(400).json({ message: "All fields are required !" });
   }
+
   try {
-    const exitstempid = await Employee.findOne({
-      where: {
-        empid,
-      },
-    });
+    const exitstempid = await Employee.findOne({ where: { empid } });
     if (exitstempid) {
-      return res
-        .status(409)
-        .json({ message: "employee with empid already exist" });
+      return res.status(409).json({ message: "employee with empid already exist" });
     }
-    const exitstempemail = await Employee.findOne({
-      where: {
-        email,
-      },
-    });
+
+    const exitstempemail = await Employee.findOne({ where: { email } });
     if (exitstempemail) {
-      return res
-        .status(409)
-        .json({ message: "employee with email already exist" });
+      return res.status(409).json({ message: "employee with email already exist" });
     }
-    await Employee.create({ name, email, designation, empid });
-    return res.status(201).json({ message: "Employee Created Successfully" });
+
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    await Employee.create({
+      name,
+      email,
+      designation,
+      empid,
+      image: imagePath,
+    });
+
+    return res.status(201).json({
+      message: "Employee Created Successfully",
+      image: imagePath,
+    });
+
   } catch (e) {
     console.log("Internal Error", e);
     return res.status(500).json({ error: "Internal Error" });
   }
 };
+
 
 export const updateController = async (req, res) => {
   // patch - It is partial resorces update

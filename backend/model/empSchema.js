@@ -24,6 +24,10 @@ const creactEmpModel = (sequelize) => {
       type: DataTypes.INTEGER,
       unique: true,
     },
+      image: {
+      type: DataTypes.STRING, // yaha image ka path store hoga
+      allowNull: true,
+    },
   });
   return Employee;
 };
