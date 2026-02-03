@@ -1,10 +1,18 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
-// ✅ storage define karo
+// 👇 absolute path banao
+const uploadPath = path.join(process.cwd(), "uploads");
+
+// 👇 agar folder nahi hai to bana do
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const safeName = file.originalname.replace(/\s+/g, "_");
@@ -12,7 +20,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// ✅ multer config
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
@@ -21,9 +28,6 @@ const upload = multer({
     } else {
       cb(new Error("Only image files allowed"), false);
     }
-  },
-  limits: {
-    fileSize: 2 * 1024 * 1024, // 2MB limit (optional but recommended)
   },
 });
 
