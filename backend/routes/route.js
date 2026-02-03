@@ -15,4 +15,4 @@ router.delete("/deleteAll", deleteAllController)
 
 
 
-export default router
+export default router 

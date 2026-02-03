@@ -40,7 +40,7 @@ const AddEmp = () => {
       console.log(formData, "formdata");
 
       await axios.post(`http://localhost:8080/api/saveData`, formData);
-      // navigate("/");
+      navigate("/");
     } catch (err) {
       console.log("Error adding employee", err);
     }

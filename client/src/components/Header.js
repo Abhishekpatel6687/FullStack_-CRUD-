@@ -51,6 +51,13 @@ const Header = ({ setSingleEmp }) => {
                 <p><strong>Email:</strong> {item.email}</p>
                 <p><strong>Designation:</strong> {item.designation}</p>
                 <p><strong>ID:</strong> {item.empid}</p>
+                    {item.image && (
+            <img
+              src={`http://localhost:8080${item.image}`}
+              alt={item.name}
+              width="150"
+            />
+          )}
               </div>
               <div className="btn-list">
                 <Link
